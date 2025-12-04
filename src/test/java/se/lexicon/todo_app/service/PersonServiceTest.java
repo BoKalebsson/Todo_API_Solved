@@ -55,7 +55,7 @@ public class PersonServiceTest {
     void setUp() {
         person = new Person(TEST_NAME, TEST_EMAIL);
         person.setId(TEST_ID);
-        personDto = new PersonDto(TEST_ID, TEST_NAME, TEST_EMAIL);
+        personDto = new PersonDto(TEST_ID, TEST_NAME, TEST_EMAIL, null, null);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class PersonServiceTest {
         // Arrange
         String updatedName = "Mehrdad Updated";
         String updatedEmail = "mehrdad.lexicon.updated@lexicon.se";
-        PersonDto updateDto = new PersonDto(TEST_ID, updatedName, updatedEmail);
+        PersonDto updateDto = new PersonDto(TEST_ID, updatedName, updatedEmail, null, null);
 
         Person existingPerson = new Person(TEST_NAME, TEST_EMAIL);
         existingPerson.setId(TEST_ID);

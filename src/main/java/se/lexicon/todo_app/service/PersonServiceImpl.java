@@ -35,7 +35,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<PersonDto> findAll() {
         return personRepository.findAll().stream()
-                .map(person -> new PersonDto(person.getId(), person.getName(), person.getEmail()))
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
@@ -43,7 +43,7 @@ public class PersonServiceImpl implements PersonService {
     public PersonDto findById(Long id) {
         Person person = personRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Person not found"));
-        return new PersonDto(person.getId(), person.getName(), person.getEmail());
+        return convertToDto(person);
     }
 
 
@@ -84,7 +84,7 @@ public class PersonServiceImpl implements PersonService {
         person.setName(personDto.name());
         person.setEmail(personDto.email());
         Person updatedPerson = personRepository.save(person);
-        return new PersonDto(updatedPerson.getId(), updatedPerson.getName(), updatedPerson.getEmail());
+        return convertToDto(updatedPerson);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class PersonServiceImpl implements PersonService {
     public PersonDto findByEmail(String email) {
         Person person = personRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Person not found"));
-        return new PersonDto(person.getId(), person.getName(), person.getEmail());
+        return convertToDto(person);
     }
 
     @Override
@@ -150,12 +150,15 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private PersonDto convertToDto(Person person) {
+        User user = person.getUser();
+
         return PersonDto.builder()
                 .id(person.getId())
                 .name(person.getName())
                 .email(person.getEmail())
+                .username(user != null ? user.getUsername() : null)
+                .roles(user != null ? user.getRoles() : null)
                 .build();
     }
-
 
 }

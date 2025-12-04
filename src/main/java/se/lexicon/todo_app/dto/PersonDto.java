@@ -4,6 +4,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import se.lexicon.todo_app.entity.Role;
+
+import java.util.Set;
 
 @Builder
 public record PersonDto(
@@ -16,5 +19,9 @@ public record PersonDto(
         @NotBlank(message = "Email is required")
         @Email(message = "Invalid email format")
         @Size(max = 150, message = "Email must be less than 150 characters")
-        String email) {
-}
+        String email,
+
+        // New fields needed for the frontend:
+        String username,
+        Set<Role> roles)
+{}
