@@ -12,12 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import se.lexicon.todo_app.dto.PersonDto;
 import se.lexicon.todo_app.dto.PersonRegistrationDto;
 import se.lexicon.todo_app.entity.Person;
+import se.lexicon.todo_app.entity.Role;
 import se.lexicon.todo_app.repository.PersonRepository;
 import se.lexicon.todo_app.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -66,7 +68,8 @@ public class PersonServiceTest {
                 TEST_EMAIL,
                 TEST_USERNAME,
                 TEST_PASSWORD,
-                TEST_PASSWORD
+                TEST_PASSWORD,
+                Set.of(Role.USER)
         );
 
         Person savedPerson = new Person(TEST_NAME, TEST_EMAIL);
