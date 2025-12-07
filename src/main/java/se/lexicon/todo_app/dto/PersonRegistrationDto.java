@@ -2,6 +2,9 @@ package se.lexicon.todo_app.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Builder;
+import se.lexicon.todo_app.entity.Role;
+
+import java.util.Set;
 
 @Builder
 public record PersonRegistrationDto(
@@ -27,7 +30,10 @@ public record PersonRegistrationDto(
     String password,
 
     @NotBlank(message = "Password confirmation is required")
-    String confirmPassword
+    String confirmPassword,
+
+    @NotEmpty(message = "At least one role must be selected")
+    Set<Role> roles
 ) {
     // Custom validation method
     @AssertTrue(message = "Passwords do not match")

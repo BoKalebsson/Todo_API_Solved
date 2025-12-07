@@ -61,7 +61,11 @@ public class PersonServiceImpl implements PersonService {
         User user = new User();
         user.setUsername(dto.username());
         user.setPassword(passwordEncoder.encode(dto.password())); // Use the actual password from DTO
-        user.addRole(Role.USER);
+        if(dto.roles() != null && !dto.roles().isEmpty()) {
+            dto.roles().forEach(user::addRole);
+        } else {
+            user.addRole(Role.USER);
+        }
 
         // Create Person and establish bidirectional relationship
         Person person = new Person(dto.name(), dto.email());
