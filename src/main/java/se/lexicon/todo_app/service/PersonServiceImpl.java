@@ -87,6 +87,14 @@ public class PersonServiceImpl implements PersonService {
                 .orElseThrow(() -> new RuntimeException("Person not found"));
         person.setName(personDto.name());
         person.setEmail(personDto.email());
+
+        // Update roles if present
+        User user = person.getUser();
+        if (user != null && personDto.roles() != null) {
+            user.getRoles().clear();
+            personDto.roles().forEach(user::addRole);
+        }
+
         Person updatedPerson = personRepository.save(person);
         return convertToDto(updatedPerson);
     }
