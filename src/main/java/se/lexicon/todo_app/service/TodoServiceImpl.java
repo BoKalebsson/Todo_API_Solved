@@ -121,8 +121,9 @@ public class TodoServiceImpl implements TodoService {
 
         // Handle attachments
         if (todoDto.attachments() != null && !todoDto.attachments().isEmpty()) {
-            // Clear existing attachments
-            existingTodo.getAttachments().clear();
+            // Disabled, to let the user keep old attachments in database:
+            /*            // Clear existing attachments
+            existingTodo.getAttachments().clear();*/
 
             // Add new attachments
             for (AttachmentDto attachmentDto : todoDto.attachments()) {
